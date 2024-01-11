@@ -87,7 +87,7 @@ resource "aws_instance" "terraform_lerning" {
 
     apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-  docker run hello-world
+    docker run hello-world
 
     apt-get install docker-compose-plugin -y
     docker compose version
