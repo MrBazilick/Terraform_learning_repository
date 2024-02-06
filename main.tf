@@ -2,11 +2,6 @@ data "aws_caller_identity" "current" {
   # for AWS account name output
 }
 
-data "aws_secretsmanager_random_password" "test1" {
-  password_length = 50
-  require_each_included_type = true
-}
-
 # Security group
 resource "aws_security_group" "learning_sg" {
   name        = "learning_sg"
@@ -71,14 +66,21 @@ resource "aws_instance" "terraform_lerning" {
 # user_data = <<-EOF
 #EOF
 }
-#added this string to create the pull request
 
-resource "aws_secretsmanager_secret" "learn_secret" {
-  description = "Practice with aws secret manager"
-  name = "learn_secret2"
-}
+#saved here secret configuration
+#secret creation:
 
-resource "aws_secretsmanager_secret_version" "learn_secret" {
-  secret_id     = aws_secretsmanager_secret.learn_secret.id
-  secret_string = data.aws_secretsmanager_random_password.test1.id
-}
+#data "aws_secretsmanager_random_password" "test1" {
+#  password_length = 50
+#  require_each_included_type = true
+#}
+
+#resource "aws_secretsmanager_secret" "learn_secret" {
+#  description = "Practice with aws secret manager"
+#  name = "learn_secret2"
+#}
+
+#resource "aws_secretsmanager_secret_version" "learn_secret" {
+#  secret_id     = aws_secretsmanager_secret.learn_secret.id
+#  secret_string = data.aws_secretsmanager_random_password.test1.id
+#}
