@@ -1,3 +1,10 @@
+#provider AWS block
+variable "profile" {
+  description = "profile of aws provider"
+  type        = string
+  default     = "default"
+}
+
 #t3.micro instance block
 
 variable "instance_type" {
@@ -16,4 +23,10 @@ variable "key_pair" {
   description = "The name of key-pair"
   type        = string
   default     = "learning_key_1"
+}
+
+variable "user_data" {
+  description = "User data eBash script"
+  type        = string
+  default     = "script.sh"
 }

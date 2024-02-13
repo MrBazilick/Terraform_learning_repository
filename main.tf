@@ -55,29 +55,29 @@ resource "aws_security_group" "learning_sg" {
 
 #Instance launch
 resource "aws_instance" "terraform_lerning" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  key_name = var.key_pair
+  ami                         = var.ami
+  instance_type               = var.instance_type
+  key_name                    = var.key_pair
   associate_public_ip_address = true
-  user_data = file("script.sh")
-  vpc_security_group_ids = [aws_security_group.learning_sg.id]
+  user_data                   = file(var.user_data)
+  vpc_security_group_ids      = [aws_security_group.learning_sg.id]
 
 #if I need to write userdata inside tf recource. leave this for example) 
 # user_data = <<-EOF
 #EOF
 }
 
-#saved here secret configuration
+#saved here secret creation configuration
 #secret creation:
 
 #data "aws_secretsmanager_random_password" "test1" {
-#  password_length = 50
+#  password_length            = 50
 #  require_each_included_type = true
 #}
 
 #resource "aws_secretsmanager_secret" "learn_secret" {
 #  description = "Practice with aws secret manager"
-#  name = "learn_secret2"
+#  name        = "learn_secret2"
 #}
 
 #resource "aws_secretsmanager_secret_version" "learn_secret" {
