@@ -1,8 +1,3 @@
-output "ec2_global_ips" {
-  description = "Instance publick IP: "
-  value       = ["${aws_instance.terraform_lerning.*.public_ip}"]
-}
-
 output "account_id" {
   description = "Account ID: "
   value       = data.aws_caller_identity.current.account_id

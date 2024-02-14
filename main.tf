@@ -2,7 +2,7 @@ data "aws_caller_identity" "current" {
   # for AWS account name output
 }
 
-# Security group
+#AWS sg with terraform resource
 resource "aws_security_group" "learning_sg" {
   name        = "learning_sg"
   description = "Allow inbound HTTPS, HTTP and SSH traffic"
@@ -42,7 +42,6 @@ resource "aws_security_group" "learning_sg" {
     Name = "allow"
   }
 }
-
 #This command need only if you don't have private key on AWS, for this task no need 
 #to create new key, just to use existing, and for this reason I can just use the 
 #key name in recource "aws_instance"
@@ -53,18 +52,14 @@ resource "aws_security_group" "learning_sg" {
 #  public_key = ""
 #}
 
-#Instance launch
-resource "aws_instance" "terraform_lerning" {
-  ami                         = var.ami
-  instance_type               = var.instance_type
-  key_name                    = var.key_pair
-  associate_public_ip_address = true
-  user_data                   = file(var.user_data)
-  vpc_security_group_ids      = [aws_security_group.learning_sg.id]
+#Instance launch with module
+module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
 
-#if I need to write userdata inside tf recource. leave this for example) 
-# user_data = <<-EOF
-#EOF
+ tags = {
+    Terraform   = "true"
+    Environment = "test"
+  }
 }
 
 #saved here secret creation configuration
