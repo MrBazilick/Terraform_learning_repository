@@ -2,46 +2,11 @@ data "aws_caller_identity" "current" {
   # for AWS account name output
 }
 
-#AWS sg with terraform resource
-resource "aws_security_group" "learning_sg" {
-  name        = "learning_sg"
-  description = "Allow inbound HTTPS, HTTP and SSH traffic"
+#SG with module 
+#module "sg_simple"{
+#  source = "./sg_simple"
+#}
 
-  ingress {
-    description      = "HTTPS"
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description      = "SSH"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description      = "HTTP"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "allow"
-  }
-}
 #This command need only if you don't have private key on AWS, for this task no need 
 #to create new key, just to use existing, and for this reason I can just use the 
 #key name in recource "aws_instance"
@@ -54,12 +19,7 @@ resource "aws_security_group" "learning_sg" {
 
 #Instance launch with module
 module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-
- tags = {
-    Terraform   = "true"
-    Environment = "test"
-  }
+  source  = "./ec2_instance"
 }
 
 #saved here secret creation configuration

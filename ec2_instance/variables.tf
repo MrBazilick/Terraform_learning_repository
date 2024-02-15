@@ -17,8 +17,8 @@ variable "key_pair" {
   default     = "learning_key_1"
 }
 
-variable "user_data" {
-  description = "User data eBash script"
-  type        = string
-  default     = "script.sh"
-}
+#variable "user_data" {
+#  description = "User data eBash script"
+#  type        = string
+#  default     = "script.sh" 
+#}
