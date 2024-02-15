@@ -2,11 +2,6 @@ data "aws_caller_identity" "current" {
   # for AWS account name output
 }
 
-#SG with module 
-#module "sg_simple"{
-#  source = "./sg_simple"
-#}
-
 #This command need only if you don't have private key on AWS, for this task no need 
 #to create new key, just to use existing, and for this reason I can just use the 
 #key name in recource "aws_instance"
