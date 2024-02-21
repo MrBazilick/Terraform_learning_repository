@@ -17,6 +17,12 @@ variable "key_pair" {
   default     = "learning_key_1"
 }
 
+#variable from another module
+variable "vpc_security_group_ids" {
+  description = "The ids of vps"
+  type        = list(string)
+}
+
 #variable "user_data" {
 #  description = "User data eBash script"
 #  type        = string
