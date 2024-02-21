@@ -1,4 +1,4 @@
-#t3.micro instance block
+# t3.micro instance block
 variable "instance_type" {
   description = "The type of instance to start"
   type        = string
@@ -17,7 +17,7 @@ variable "key_pair" {
   default     = "learning_key_1"
 }
 
-#variable from another module
+# variable from another module
 variable "vpc_security_group_ids" {
   description = "The ids of vps"
   type        = list(string)

@@ -1,4 +1,4 @@
-#default subnets for lb
+# Default subnets for lb
 data "aws_vpc" "default" {
   default = true
 }
@@ -10,7 +10,7 @@ data "aws_subnets" "default" {
   }
 }
 
-#Application Load Balancer 
+# Application Load Balancer 
 resource "aws_lb" "app_elb_test" {
   name               = "app-elb-test01"
   internal           = false
@@ -18,15 +18,14 @@ resource "aws_lb" "app_elb_test" {
   security_groups    = var.security_groups
   subnets            = data.aws_subnets.default.ids
 
-#To avoid accidentally deleting this LB. Need to be removed before deletion. Now not need as test purpose
+# To avoid accidentally deleting this LB. Need to be removed before deletion. Now not need as test purpose
 #  enable_deletion_protection = true
 }
 
-#to configure health check for lb
+# to configure health check for lb
 resource "aws_lb_target_group" "http-check" {
   name     = "http-healthcheck"
   port     = 80
-  #target_type = "alb"
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id
 

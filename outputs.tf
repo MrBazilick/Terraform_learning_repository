@@ -1,4 +1,4 @@
-#output of instance public ip
+# output of instance public ip
 output "ec2_global_ips" {
   description = "Instance public IP: "
   value       = module.ec2_instance.ec2_ip

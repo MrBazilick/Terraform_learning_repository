@@ -1,5 +1,7 @@
 #!/bin/bash 
       apt-get update -y
+      apt-get install awscli -y
+      apt-get install jq -y
       apt-get install htop -y
       apt-get install ca-certificates curl gnupg -y
       install -m 0755 -d /etc/apt/keyrings
@@ -18,3 +20,9 @@
 
     apt-get install docker-compose-plugin -y
     docker compose version
+
+    SECRET=$(aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.learn_secret.id} --region eu-north-1 --query SecretString --output text)
+    echo $SECRET | jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' > /home/ubuntu/.env
+    
+    chown ubuntu:ubuntu /home/ubuntu/.env
+    chmod 600 /home/ubuntu/.env
