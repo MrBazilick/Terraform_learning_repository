@@ -1,7 +1,5 @@
 #!/bin/bash 
       apt-get update -y
-      apt-get install awscli -y
-      apt-get install jq -y
       apt-get install htop -y
       apt-get install ca-certificates curl gnupg -y
       install -m 0755 -d /etc/apt/keyrings
@@ -20,7 +18,3 @@
 
     apt-get install docker-compose-plugin -y
     docker compose version
-
-    aws secretsmanager get-secret-value --secret-id "${secret_id}" --region eu-north-1 --query SecretString --output text > /var/log/secret_test.env
-
-    chmod 600 /var/log/secret_test.env
