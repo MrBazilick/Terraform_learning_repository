@@ -39,7 +39,7 @@ data "aws_secretsmanager_random_password" "test1" {
 
 resource "aws_secretsmanager_secret" "learn_secret" {
   description = "Practice with aws secret manager"
-  name        = "learn_secret2"
+  name        = "learn_secret7" # secret name, need to change after each apply/destroy
 }
 
 resource "aws_secretsmanager_secret_version" "learn_secret" {
@@ -53,7 +53,10 @@ resource "aws_instance" "terraform_lerning" {
   instance_type               = var.instance_type
   key_name                    = var.key_pair
   associate_public_ip_address = true
-  user_data                   = file("${path.module}/script.sh")
+  #user_data                  = file("${path.module}/script.sh") # old version of user data
+  user_data = templatefile("${path.module}/script.sh.tpl", {
+    secret_id = aws_secretsmanager_secret.learn_secret.id
+  })
   vpc_security_group_ids      = var.vpc_security_group_ids
   iam_instance_profile  = aws_iam_instance_profile.sm_rw_test_profile.name
 
