@@ -38,6 +38,7 @@ terraform.rc
 #ignore keys
 *.pem
 learning_key_1_public
+*.txt
 
 #ignore terraform lock file
 .terraform.lock.hcl
