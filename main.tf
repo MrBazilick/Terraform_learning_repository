@@ -24,10 +24,10 @@ module "ec2_instance" {
   vpc_security_group_ids = [module.sg_simple.learning_sg_id]
 }
 
-# lb launch with module
-module "aws-app-lb" {
-  source  = "./aws-app-lb"
-
-  security_groups = [module.sg_simple.app_elb_sg_id]
-  target_id       = module.ec2_instance.ec2_id
-}
+# alb launch with module
+#module "aws-app-lb" {
+#  source  = "./aws-app-lb"
+#
+#  security_groups = [module.sg_simple.app_elb_sg_id]
+#  target_id       = module.ec2_instance.ec2_id
+#}
