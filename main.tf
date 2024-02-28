@@ -24,10 +24,22 @@ module "ec2_instance" {
   vpc_security_group_ids = [module.sg_simple.learning_sg_id]
 }
 
-# lb launch with module
-module "aws-app-lb" {
-  source  = "./aws-app-lb"
+# alb launch with module
+#module "aws-app-lb" {
+#  source  = "./aws-app-lb"
+#
+#  security_groups = [module.sg_simple.app_elb_sg_id]
+#  target_id       = module.ec2_instance.ec2_id
+#}
 
-  security_groups = [module.sg_simple.app_elb_sg_id]
-  target_id       = module.ec2_instance.ec2_id
+# RDS import
+resource "aws_db_instance" "my-test-rds" {
+  identifier     = "rds-test-db-02"
+  instance_class = "db.t3.micro"
+  engine         = "mysql"
+  # adding this parameters to import wothout changes
+  copy_tags_to_snapshot = true
+  max_allocated_storage = "1000"
+  monitoring_interval   = "60"
+  skip_final_snapshot   = true
 }

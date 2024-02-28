@@ -1,51 +1,7 @@
-# Instance profile with secret manager permissions
-resource "aws_iam_role" "secret_test_role" {
-  name = "secret_test_role"
-
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
-}
-
-# IAM Policy Attachment (AWS-managed policy example)
-resource "aws_iam_role_policy_attachment" "secrets_manager_rw_test" {
-  role       = aws_iam_role.secret_test_role.name
-  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
-}
-
-# Instance Profile
-resource "aws_iam_instance_profile" "sm_rw_test_profile" {
-  name = "example_profile"
-  role = aws_iam_role.secret_test_role.name
-}
-
-# secret creation:
-data "aws_secretsmanager_random_password" "test1" {
-  password_length            = 50
-  require_each_included_type = true
-}
-
-resource "aws_secretsmanager_secret" "learn_secret" {
-  description = "Practice with aws secret manager"
-  name        = "learn_secret7" # secret name, need to change after each apply/destroy
-}
-
-resource "aws_secretsmanager_secret_version" "learn_secret" {
-  secret_id     = aws_secretsmanager_secret.learn_secret.id
-  secret_string = data.aws_secretsmanager_random_password.test1.id
-}
+# Secret creation module calling (temporary commented)
+#module "secret-creation" {
+#  source = "../secret-creation"
+#}
 
 # Instance launch
 resource "aws_instance" "terraform_lerning" {
@@ -53,12 +9,14 @@ resource "aws_instance" "terraform_lerning" {
   instance_type               = var.instance_type
   key_name                    = var.key_pair
   associate_public_ip_address = true
-  #user_data                  = file("${path.module}/script.sh") # old version of user data
-  user_data = templatefile("${path.module}/script.sh.tpl", {
-    secret_id = aws_secretsmanager_secret.learn_secret.id
-  })
+  # user data without secret creation 
+  user_data                  = file("${path.module}/script1.sh")
+  # user data that includs secret creation (temporary commented) 
+  #user_data = templatefile("${path.module}/script.sh.tpl", {
+  #  secret_id = module.secret-creation.learn_secret-secret_id # needed for secret creation (temporary commented) 
+  #})
   vpc_security_group_ids      = var.vpc_security_group_ids
-  iam_instance_profile  = aws_iam_instance_profile.sm_rw_test_profile.name
+#  iam_instance_profile  = module.secret-creation.iam-instance-profile-name # needed for secret creation (temporary commented)
 
  tags = {
     Terraform   = "true"
