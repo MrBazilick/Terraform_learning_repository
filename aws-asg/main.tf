@@ -9,7 +9,7 @@ resource "aws_launch_template" "test-launch" {
 
 # Create ASG
 resource "aws_autoscaling_group" "asg-test" {
-  availability_zones        = ["eu-north-1"]
+  availability_zones        = ["eu-north-1a"]
   desired_capacity          = 2
   max_size                  = 3
   min_size                  = 2
