@@ -41,7 +41,7 @@ resource "aws_security_group" "learning_sg" {
   }
 }
 
-# AWS sg for app elb
+/*# AWS sg for app elb
 resource "aws_security_group" "app_elb_sg" {
   name        = "app_elb_sg"
   description = "Allow inbound HTTPS, HTTP traffic"
@@ -74,4 +74,4 @@ resource "aws_security_group" "app_elb_sg" {
     Terraform   = "true"
     Environment = "test"
   }
-}
+}*/
