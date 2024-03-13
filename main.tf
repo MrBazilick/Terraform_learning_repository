@@ -17,12 +17,12 @@ module "sg_simple" {
   source = "./sg_simple"
 }
 
-/*# Instance launch with module
+# Instance launch with module
 module "ec2_instance" {
   source  = "./ec2_instance"
 
   vpc_security_group_ids = [module.sg_simple.learning_sg_id]
-}*/
+}
 
 /* # alb launch with module
 module "aws-app-lb" {
@@ -44,9 +44,9 @@ resource "aws_db_instance" "my-test-rds" {
   skip_final_snapshot   = true
 } */
 
-# ASG launch with module
+/* # ASG launch with module
 module "aws-asg" {
   source  = "./aws-asg"
 
   vpc_security_group_ids = [module.sg_simple.learning_sg_id]
-}
+}*/
