@@ -8,7 +8,7 @@ variable "instance_type" {
 variable "ami" {
   description = "The ami of instance"
   type        = string
-  default     = "ami-0014ce3e52359afbd" #Amazon AMI
+  default     = "ami-0a6fa81f80b7bdb65" #Canonical Ubuntu AMI
 }
 
 variable "key_pair" {

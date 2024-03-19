@@ -12,17 +12,17 @@ resource "aws_key_pair" "learning" {
   public_key = ""
 }*/
 
-/*# SG module calling
+# SG module calling
 module "sg_simple" {
   source = "./sg_simple"
-}*/
+}
 
-/*# Instance launch with module
+# Instance launch with module
 module "ec2_instance" {
   source  = "./ec2_instance"
 
   vpc_security_group_ids = [module.sg_simple.learning_sg_id]
-}*/
+}
 
 /* # alb launch with module
 module "aws-app-lb" {
@@ -58,5 +58,9 @@ import {
 
 resource "aws_ecr_repository" "ecr-test" {
   name = "my-test-ecr-01"
+
+   lifecycle {
+    prevent_destroy = true
+  }
 }
 
