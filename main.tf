@@ -63,4 +63,3 @@ resource "aws_ecr_repository" "ecr-test" {
     prevent_destroy = true
   }
 }
-
