@@ -59,7 +59,7 @@ import {
 resource "aws_ecr_repository" "ecr-test" {
   name = "my-test-ecr-01"
 
-   lifecycle {
+   /*lifecycle {
     prevent_destroy = true
-  }
+  }*/
 }
